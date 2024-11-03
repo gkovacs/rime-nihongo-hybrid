@@ -1,0 +1,31 @@
+---
+"on":
+  push:
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    paths-ignore:
+      - "**.md"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          n="rime-japanese-0.0~git$(date +%Y%m%d).$(git rev-parse HEAD | cut -c-6)"
+          cd ..
+          mv rime-japanese "$n"
+          tar vcaf ./"$n".tar.gz "$n"
+          mv ./*.tar.* "$n"
+          mv "$n" rime-japanese
+      - uses: yuezk/publish-ppa-package@main
+        with:
+          repository: freedwu/rime
+          gpg_private_key: ${{secrets.GPG_PRIVATE_KEY}}
+          gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
+          tarball: ./*.tar.*
+          deb_email: ${{secrets.DEB_EMAIL}}
+          deb_fullname: freedwu

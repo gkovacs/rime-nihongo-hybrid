@@ -1,0 +1,19 @@
+Source: rime-japanese
+Section: utils
+Priority: optional
+Maintainer: Geza Kovacs <geza0kovacs@gmail.com>
+Uploaders: Wu, Zhenyu <wuzhenyu@ustc.edu>
+Build-Depends: debhelper-compat (= 9),
+               librime-bin,
+               librime-data-stroke,
+               librime-data-terra-pinyin
+Rules-Requires-Root: no
+Standards-Version: 4.6.0
+Homepage: https://github.com/gkovacs/rime-japanese
+Vcs-Git: https://github.com/gkovacs/rime-japanese
+Vcs-Browser: https://github.com/gkovacs/rime-japanese
+
+Package: rime-data-japanese
+Architecture: any
+Depends: ${misc:Depends}
+Description: This is a layout for typing in Japanese 日本語. Supports words in all 3 scripts (Kanji, Hiragana, Katakana).
